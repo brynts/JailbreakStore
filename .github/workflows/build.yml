@@ -1,0 +1,40 @@
+name: Build JailbreakStore
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+# Tambahkan blok ini untuk memberi izin write ke token
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip make
+      
+      - name: Download ps5-payload-sdk
+        run: |
+          wget https://github.com/ps5-payload-dev/sdk/releases/latest/download/ps5-payload-sdk.zip
+          sudo unzip -d /opt ps5-payload-sdk.zip
+      
+      - name: Build ELF
+        run: |
+          PS5_PAYLOAD_SDK=/opt/ps5-payload-sdk make
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Build #${{ github.run_number }}
+          draft: true
+          files: JailbreakStore.elf
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
