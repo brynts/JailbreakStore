@@ -13,8 +13,8 @@
 #define APPINFO_DB_PATH  "/system_data/priv/mms/appinfo.db"
 
 #define TITLE_ID      "NPXS40047"
-#define NEW_TITLE     "Jailbreak Store"
-#define NEW_DEEPLINK  "https://notmaj0r.github.io/Relapse-Exploit/"
+#define NEW_TITLE     "Relapse"
+#define NEW_DEEPLINK  "http://10.10.10.2:8182"
 #define ICON_DIR      "/user/appmeta/" TITLE_ID
 #define ICON_PATH     ICON_DIR "/icon0.png"
 #define NEW_ICON0     ICON_PATH "?ts=1"
